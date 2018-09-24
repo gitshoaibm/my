@@ -906,15 +906,10 @@ public class InCallController extends CallsManagerListenerBase {
 
     @Override
     public void onCallStateChanged(Call call, int oldState, int newState) {
-        boolean vibrateOnConnect = Settings.System.getIntForUser(mContext.getContentResolver(),
-            Settings.System.VIBRATE_ON_CONNECT, 0, UserHandle.USER_CURRENT) == 1;
-        boolean vibrateOnDisconnect = Settings.System.getIntForUser(mContext.getContentResolver(),
-            Settings.System.VIBRATE_ON_DISCONNECT, 0, UserHandle.USER_CURRENT) == 1; 
 
-        if (oldState == CallState.DIALING && newState == CallState.ACTIVE && vibrateOnConnect) {
+        if (oldState == CallState.DIALING && newState == CallState.ACTIVE) {
             vibrate(100, 200, 0);
-        } else if (oldState == CallState.ACTIVE && newState == CallState.DISCONNECTED
-                && vibrateOnDisconnect) {
+        } else if (oldState == CallState.ACTIVE && newState == CallState.DISCONNECTED) {
             vibrate(100, 200, 0);
         }
         updateCall(call);
